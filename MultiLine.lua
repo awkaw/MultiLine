@@ -90,11 +90,13 @@ function MultiLine:setAlign(align)
 	
 	local tmpText = nil;
 	
-	--[[for k,field in pairs(self.fields) do
-		tmpText = field:getText();
-		tmpText = tmpText:gsub("%S+", " ");
-		field:setText(tmpText);
-	end]]---
+	if self.align == "left" or self.align == "center" or self.align == "right" then
+		for k,field in pairs(self.fields) do
+			tmpText = field:getText();
+			tmpText = tmpText:gsub("%s+", " ");
+			field:setText(tmpText);
+		end
+	end
 	
 	if self.align == "left" then
 		for k,field in pairs(self.fields) do
@@ -116,6 +118,7 @@ function MultiLine:setAlign(align)
 	
 	if self.align == "justify" then
 		for k,field in pairs(self.fields) do
+			field:setX(0);
 			tmpText = field:getText();
 			local f = 1;
 			local startText = tmpText;
