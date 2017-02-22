@@ -6,5 +6,6 @@ Methods:
 - setTextColor
 - setAlign
 - setFont
+- setFontSize
 - setLineHeight
 - setWidth
