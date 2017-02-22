@@ -1,7 +1,7 @@
 # MultiLine
 MultiLine field for Gideros Mobile
 
-# Methods:
+Methods:
 - setText (string)
 - setTextColor (hex: 0xFF0000)
 - setAlign (string: 'left','right','center','justify')
