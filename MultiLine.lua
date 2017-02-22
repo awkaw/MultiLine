@@ -1,22 +1,17 @@
 MultiLine = gideros.class(Sprite)
 
 function MultiLine:init(text, width, font, align, textColor)
-	--argument check
+
 	if not align then align = "left" end
-	--if not linespace then linespace = 2 end
 	if not font then font = nil end
 	if not textColor then textColor = 0xFFFFFF end
 	
-	--internal settings
 	self.textColor = textColor
-	--self.letterSpacing = 0.6
 	self.text = text
 	self.align = align
 	self.width = width
-	self.lineSpacing = 0
 	self.font = font
 	self.lineHeight = self.font:getLineHeight();
-	self.wordSpace = 5; --self.lineHeight / 3
 	
 	self:setText(text)	
 end
@@ -66,8 +61,6 @@ function MultiLine:setText(text)
 			end
 		end
 		
-		if rn then
-			j = j + 1;
-		end
+		if rn then j = j + 1; end
 	end
 end
