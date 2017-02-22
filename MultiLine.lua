@@ -35,6 +35,7 @@ function MultiLine:setText(text)
 	local j = 1;
 	local tmpText = nil;
 	local rn = false;
+	local sn = "|n|";
 	
 	if self.fields ~= nil then 
 		for k,field in pairs(self.fields) do
@@ -44,7 +45,7 @@ function MultiLine:setText(text)
 	
 	self.fields = {};
 	
-	tmpText = self.text:gsub("\n", "|n| ");
+	tmpText = self.text:gsub("\n", sn.." ");
 	
 	for line in string.gmatch(tmpText, "%S+") do
 	  self.lines[i] = line;
@@ -53,8 +54,8 @@ function MultiLine:setText(text)
 		
 	for k,value in pairs(self.lines) do
 	
-		rn = (string.find(value, "|n|") ~= nil);
-		value = value:gsub("|n|", "");
+		rn = (string.find(value, sn) ~= nil);
+		value = value:gsub(sn, "");
 	
 		if self.fields[j] == nil then
 			self:createLine(value, j)
@@ -76,13 +77,11 @@ function MultiLine:setText(text)
 end
 
 function MultiLine:setTextColor(textColor)
-
 	self.textColor = textColor
 	
 	for k,field in pairs(self.fields) do
 		field:setTextColor(self.textColor);
 	end
-
 end
 
 function MultiLine:setAlign(align)
@@ -106,6 +105,10 @@ function MultiLine:setAlign(align)
 			field:setX(self.width - field:getWidth());
 		end
 	end
+	
+	if self.align == "justify" then
+		----- in progress...
+	end
 
 end
 
@@ -113,14 +116,21 @@ function MultiLine:setFont(font, lineHeight)
 
 	self.font = font;
 
-	if not lineHeight then lineHeight = self.font:getLineHeight(); end
-	
-	self.lineHeight = lineHeight;
+	if not lineHeight then 
+		self.lineHeight = self.font:getLineHeight();
+	else
+		self.lineHeight = lineHeight;
+	end
 		
 	self:setText(self.text);
 end
 
 function MultiLine:setLineHeight(lineHeight)
 	self.lineHeight = lineHeight
+	self:setText(self.text)
+end
+
+function MultiLine:setWidth(width)
+	self.width = width
 	self:setText(self.text)
 end
