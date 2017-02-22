@@ -149,6 +149,22 @@ function MultiLine:setFont(font, lineHeight)
 	self:setText(self.text);
 end
 
+function MultiLine:setFontSize(fontSize, lineHeight)
+
+	local fontName = self.font:getFontname();
+
+	self.font = TTFont.new(fontName, fontSize, false);
+
+	if not lineHeight then 
+		self.lineHeight = self.font:getLineHeight();
+	else
+		self.lineHeight = lineHeight;
+	end
+		
+	self:setText(self.text);
+
+end
+
 function MultiLine:setLineHeight(lineHeight)
 	self.lineHeight = lineHeight
 	self:setText(self.text)
