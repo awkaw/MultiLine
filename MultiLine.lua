@@ -30,15 +30,23 @@ function MultiLine:setText(text)
 	
 	self.text = text
 	self.lines = {};
-	self.fields = {};
+	
 	local i = 1;
 	local j = 1;
 	local tmpText = nil;
 	local rn = false;
 	
-	self.text = self.text:gsub("\n", "|n| ");
+	if self.fields ~= nil then 
+		for k,field in pairs(self.fields) do
+			self:removeChild(field);
+		end
+	end
 	
-	for line in string.gmatch(self.text, "%S+") do
+	self.fields = {};
+	
+	tmpText = self.text:gsub("\n", "|n| ");
+	
+	for line in string.gmatch(tmpText, "%S+") do
 	  self.lines[i] = line;
 	  i = i + 1;
 	end
@@ -99,4 +107,20 @@ function MultiLine:setAlign(align)
 		end
 	end
 
+end
+
+function MultiLine:setFont(font, lineHeight)
+
+	self.font = font;
+
+	if not lineHeight then lineHeight = self.font:getLineHeight(); end
+	
+	self.lineHeight = lineHeight;
+		
+	self:setText(self.text);
+end
+
+function MultiLine:setLineHeight(lineHeight)
+	self.lineHeight = lineHeight
+	self:setText(self.text)
 end
