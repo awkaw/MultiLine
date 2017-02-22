@@ -63,4 +63,40 @@ function MultiLine:setText(text)
 		
 		if rn then j = j + 1; end
 	end
+	
+	self:setAlign(self.align);
+end
+
+function MultiLine:setTextColor(textColor)
+
+	self.textColor = textColor
+	
+	for k,field in pairs(self.fields) do
+		field:setTextColor(self.textColor);
+	end
+
+end
+
+function MultiLine:setAlign(align)
+
+	self.align = align
+	
+	if self.align == "left" then
+		for k,field in pairs(self.fields) do
+			field:setX(0);
+		end
+	end
+	
+	if self.align == "center" then
+		for k,field in pairs(self.fields) do
+			field:setX((self.width - field:getWidth()) / 2);
+		end
+	end
+	
+	if self.align == "right" then
+		for k,field in pairs(self.fields) do
+			field:setX(self.width - field:getWidth());
+		end
+	end
+
 end
